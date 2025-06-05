@@ -9,8 +9,6 @@ import WalletsList from './components/Wallets/WalletsList';
 import CreateWallet from './components/Wallets/CreateWallet';
 import CreateAnnouncement from './components/Announcements/CreateAnnouncement';
 import AnnouncementsList from './components/Announcements/AnnouncementsList';
-
-// ✅ Importar componentes de Admin
 import AdminDashboard from './components/Admin/AdminDashboard';
 import AdminOverview from './components/Admin/AdminOverview';
 
@@ -43,7 +41,7 @@ function App() {
     <Router>
       <div className="App">
         {user ? (
-          // ✅ Verificar si es admin para redirigir
+          // Verificar si es admin para redirigir
           user.es_admin ? (
             // Usuario ADMIN - Mostrar Panel de Administrador
             <Routes>

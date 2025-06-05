@@ -1,38 +1,36 @@
-const API_BASE_URL = 'http://localhost:3001/api';
+import axios from 'axios';
+
+// Configurar instancia base de axios
+const API = axios.create({
+  baseURL: 'http://localhost:3001/api',
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  }
+});
 
 class CurrencyService {
   async getAvailableCurrencies() {
     try {
-      console.log('Fetching currencies from:', `${API_BASE_URL}/monedas`);
+      console.log('Fetching currencies from:', '/monedas');
       
-      const response = await fetch(`${API_BASE_URL}/monedas`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await API.get('/monedas');
+      console.log('Currency API Response:', response.data);
 
-      const data = await response.json();
-      console.log('Currency API Response:', data);
-
-      if (!response.ok) {
-        throw new Error(data.message || `HTTP Error: ${response.status}`);
-      }
-
-      if (!data.success) {
-        throw new Error(data.message || 'API returned success: false');
+      if (!response.data.success) {
+        throw new Error(response.data.message || 'API returned success: false');
       }
 
       return { 
         success: true, 
-        data: data.data || [],
-        message: data.message 
+        data: response.data.data || [],
+        message: response.data.message 
       };
     } catch (error) {
       console.error('CurrencyService Error:', error);
       return { 
         success: false, 
-        error: error.message || 'Error de conexión al obtener monedas',
+        error: error.response?.data?.message || error.message || 'Error de conexión al obtener monedas',
         data: []
       };
     }

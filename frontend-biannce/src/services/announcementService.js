@@ -1,112 +1,89 @@
-    const API_BASE_URL = 'http://localhost:3001/api';
+import axios from 'axios';
 
-    class AnnouncementService {
-    async createAnnouncement(announcementData) {
-        try {
-        const token = localStorage.getItem('token');
-        
-        console.log('Creating announcement with data:', announcementData);
+// Configurar instancia base de axios
+const API = axios.create({
+  baseURL: 'http://localhost:3001/api',
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  }
+});
 
-        const response = await fetch(`${API_BASE_URL}/anuncios`, {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(announcementData),
-        });
+// Interceptor para agregar token de autenticación
+API.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
-        const data = await response.json();
-        console.log('Create announcement API response:', data);
+class AnnouncementService {
+  async createAnnouncement(announcementData) {
+    try {
+      console.log('Creating announcement with data:', announcementData);
 
-        if (!response.ok) {
-            throw new Error(data.message || 'Error al crear anuncio');
-        }
+      const response = await API.post('/anuncios', announcementData);
+      console.log('Create announcement API response:', response.data);
 
-        return { 
-            success: true, 
-            data: data.data,
-            message: data.message 
-        };
-        } catch (error) {
-        console.error('AnnouncementService createAnnouncement error:', error);
-        return { 
-            success: false, 
-            error: error.message || 'Error de conexión' 
-        };
-        }
+      return { 
+        success: true, 
+        data: response.data.data,
+        message: response.data.message 
+      };
+    } catch (error) {
+      console.error('AnnouncementService createAnnouncement error:', error);
+      return { 
+        success: false, 
+        error: error.response?.data?.message || error.message || 'Error de conexión' 
+      };
     }
+  }
 
-    // ✅ Nuevo método para obtener anuncios de venta
-    async getAnnouncementsByType(type = 'venta') {
-        try {
-        console.log('Fetching announcements of type:', type);
+  async getAnnouncementsByType(type = 'venta') {
+    try {
+      console.log('Fetching announcements of type:', type);
 
-        const response = await fetch(`${API_BASE_URL}/anuncios/tipo/${type}`, {
-            method: 'GET',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-        });
+      const response = await API.get(`/anuncios/tipo/${type}`);
+      console.log('Get announcements API response:', response.data);
 
-        const data = await response.json();
-        console.log('Get announcements API response:', data);
-
-        if (!response.ok) {
-            throw new Error(data.message || 'Error al obtener anuncios');
-        }
-
-        return { 
-            success: true, 
-            data: data.data || [],
-            message: data.message 
-        };
-        } catch (error) {
-        console.error('AnnouncementService getAnnouncementsByType error:', error);
-        return { 
-            success: false, 
-            error: error.message || 'Error de conexión',
-            data: []
-        };
-        }
+      return { 
+        success: true, 
+        data: response.data.data || [],
+        message: response.data.message 
+      };
+    } catch (error) {
+      console.error('AnnouncementService getAnnouncementsByType error:', error);
+      return { 
+        success: false, 
+        error: error.response?.data?.message || error.message || 'Error de conexión',
+        data: []
+      };
     }
+  }
 
-    // ✅ Método para obtener anuncios del usuario actual
-    async getUserAnnouncements() {
-        try {
-        const token = localStorage.getItem('token');
-        const user = JSON.parse(localStorage.getItem('user'));
+  async getUserAnnouncements() {
+    try {
+      const user = JSON.parse(localStorage.getItem('user'));
 
-        if (!user || !user.id) {
-            throw new Error('Usuario no autenticado');
-        }
+      if (!user || !user.id) {
+        throw new Error('Usuario no autenticado');
+      }
 
-        const response = await fetch(`${API_BASE_URL}/anuncios/usuario/${user.id}`, {
-            method: 'GET',
-            headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-            },
-        });
+      const response = await API.get(`/anuncios/usuario/${user.id}`);
 
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.message || 'Error al obtener anuncios');
-        }
-
-        return { 
-            success: true, 
-            data: data.data || []
-        };
-        } catch (error) {
-        return { 
-            success: false, 
-            error: error.message || 'Error de conexión',
-            data: []
-        };
-        }
+      return { 
+        success: true, 
+        data: response.data.data || []
+      };
+    } catch (error) {
+      return { 
+        success: false, 
+        error: error.response?.data?.message || error.message || 'Error de conexión',
+        data: []
+      };
     }
-    }
+  }
+}
 
-    export default new AnnouncementService();
+export default new AnnouncementService();
