@@ -1,0 +1,233 @@
+    .create-wallet-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .create-wallet-header {
+    margin-bottom: 2rem;
+    text-align: center;
+    }
+
+    .back-button {
+    background: none;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    transition: color 0.2s;
+    }
+
+    .back-button:hover {
+    color: #374151;
+    }
+
+    .create-wallet-header h2 {
+    color: #1f2937;
+    font-size: 1.8rem;
+    margin: 0.5rem 0;
+    }
+
+    .subtitle {
+    color: #6b7280;
+    margin: 0;
+    }
+
+    .form-group {
+    margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+    display: block;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    }
+
+    .currency-select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    transition: border-color 0.2s;
+    }
+
+    .currency-select:focus {
+    outline: none;
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+    }
+
+    .loading-select {
+    padding: 0.75rem;
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    color: #6b7280;
+    text-align: center;
+    }
+
+    .selected-currency-info {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    }
+
+    .selected-currency-info h4 {
+    margin: 0 0 0.5rem 0;
+    color: #0369a1;
+    font-size: 0.9rem;
+    }
+
+    .currency-details {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    }
+
+    .currency-symbol {
+    background: #0ea5e9;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    }
+
+    .currency-name {
+    font-weight: 500;
+    color: #0369a1;
+    }
+
+    .currency-value {
+    color: #6b7280;
+    font-size: 0.9rem;
+    }
+
+    .error-message {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    padding: 0.75rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    }
+
+    .success-message {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #15803d;
+    padding: 0.75rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    }
+
+    .form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    }
+
+    .cancel-button {
+    background: #f3f4f6;
+    color: #374151;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    }
+
+    .cancel-button:hover:not(:disabled) {
+    background: #e5e7eb;
+    }
+
+    .submit-button {
+    background: #f59e0b;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    }
+
+    .submit-button:hover:not(:disabled) {
+    background: #d97706;
+    }
+
+    .cancel-button:disabled,
+    .submit-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+    .create-wallet-container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .currency-details {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    }
+
+
+
+    .saldo-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    transition: border-color 0.2s;
+    }
+
+    .saldo-input:focus {
+    outline: none;
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+    }
+
+    .form-help {
+    color: #6b7280;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: block;
+    }
+
+    .saldo-preview {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background: #ecfdf5;
+    border: 1px solid #bbf7d0;
+    border-radius: 6px;
+    color: #059669;
+    }
+
